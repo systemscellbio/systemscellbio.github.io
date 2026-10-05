@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research — Hansen Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="research">
+
+ <!-- NAV bar -->
+ <div id="nav-placeholder"></div>
+
+  <!-- ===== FIXED FULL-SCREEN IMAGE BACKGROUND ===== -->
+  <div class="research-hero">
+    <div class="research-stack">
+      <img class="research-base" src="images/carousel/cc_predict_wide_zoom_og.webp"
+           alt="3D confocal image of a primary cilium showing variable subciliary localization of CKAP2. Cell cycle stage analyzed with generative AI. Cilia analyzed with CiliaQ.">
+    </div>
+  </div>
+
+  <!-- ===== TRANSPARENT SPACER — heading at BOTTOM ===== -->
+  <header class="map-hero-spacer">
+    <!-- Image credit pinned bottom-left (like the map legend) -->
+    <div class="map-legend">
+      <!-- <span class="legend-title">Cilium-specific localization of CKAP2:</br>Cell cycle stage analyzed via impainting of the</br>cell cycle marker GMNN.</br>Ciliary CKAP2 intensity analyzed with CiliaQ.</span> -->
+      <span style="font-size:0.8rem;">
+        Adapted from
+        <a href="https://doi.org/10.1016/j.cell.2025.08.039" target="_blank" style="color:#fff;">Hansen et al., Cell 2025</a>,
+        <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#fff;">CC BY 4.0</a> and animated.
+      </span>
+    </div>
+
+    <div class="container">
+      <h1>Systems Cell Biology Laboratory</h1>
+
+      <div class="scroll-hint">
+        <a href="#research-content">Explore our research</a>
+        <a href="#research-content"><span class="chevron"></span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT PANEL slides up over the image ===== -->
+  <div class="content-panel">
+    <section id="research-content">
+      <div class="container">
+      <h2>Research</h2>
+      <p>
+        <!-- EDIT: overview paragraph -->
+        
+      </p>
+
+      <!-- Optional research-loop diagram. Put image in images/ and uncomment. -->
+      <!-- <img class="figure" src="images/research-loop.png" alt="Data-to-wet-lab research loop"> -->
+      
+      <div class="card">
+        <h3>Research Approach</h3>
+        <p>Our research closes the loop between computation and experiment: we mine complex biological datasets to propose hypotheses, then test them directly in tissue and cell models, often opening the next loop.</p>
+      </div>
+
+      <div class="card">
+        <h3>The Cell's Antenna</h3>
+        <p>How do cells know their role in collectively building a living being? Here, we focus on the cell's antenna: the primary cilium, an antenna-like organelle built by many cell types, which indeed functions as a cellular antenna. By understanding its architecture and dynamics, we aim to reveal how cells perceive their environment and dynamically adapt.</p>
+      </div>
+
+      <div class="card">
+        <h3>From Molecules to Cellular Systems to Tissues</h3>
+        <p>The primary cilium is particularly interesting from a systems perspective. It is likely the most heterogeneous and cell-customized organelle. Cells tune their cilia for cell-type specific sensation of their environment. We know individual signaling pathways enacted through the cilium, and we know organ-scale consequences of defect cilia. Far less understood are the manifold cell-specific roles of cilia. We study how molecular-scale organization scales up to whole-cell behavior and tissue function, integrating imaging and other data that profile this role at different biological scales.</p>
+      </div>
+ 
+      <div class="card">
+        <h3>What Goes Wrong In Disease</h3>
+        <p>Defects at the molecular and cellular level can manifest as tissue- and organ-level dysfunction in human disease. We collaborate with clinical and translational partners to connect our data-driven and mechanistic tools and findings to disease-relevant contexts and patient specimens, tightly linking our work to physiological and clinical impact.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Beyond Cilia</h3>
+        <p>The primary cilium is a prime example of a dynamic subcellular structure with many poorly understood roles. We are eager to extend our tools and approaches to other organelles and subcellular structures as new questions arise. By bridging disciplines and scales to connect mechanistic and clinical research, we want to pave avenues for new diagnostics and therapies.</p>
+      </div>
+      
+      <div class="card">
+        <h3>Technology</h3>
+        <p>We tackle research challenges by developing new technology and adapting existing methods. Subcellular questions demand new spatial approaches, so we build tools to comprehensively profile tissues, cells, and organelles across scales, in both fixed and live samples. We embrace the AI era by developing and customizing responsible, transparent AI tools. Here, interdisciplinarity and teamwork are essential: we involve all stakeholders (developers, scientists, clinicians, and patients) from the start, prioritizing ethical application from the very beginning.</p>
+      </div>
+    </div>
+    </section>
+  </div>
+  
+  <!-- ===== FOOTER ===== -->  
+  <div id="footer-placeholder"></div>
+  
+  <!-- Add nav and footer -->
+  <script>
+   // Measure the real nav height and store it as a CSS variable
+    function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+      }
+    }
+    
+    // Header
+    fetch('nav.html')
+      .then(r => r.text())
+      .then(html => {
+        const placeholder = document.getElementById('nav-placeholder');
+        placeholder.outerHTML = html;   // replaces the div with the nav directly
+
+        // highlight active page
+        const page = document.body.dataset.page;
+        const link = document.querySelector('[data-nav="' + page + '"]');
+        if (link) link.classList.add('active');
+
+        // measure nav height (after nav is in the DOM)
+        setNavHeight();
+        window.addEventListener('resize', setNavHeight);
+      });
+
+    // FOOTER
+    fetch('footer.html')
+      .then(r => r.text())
+      .then(html => {
+        const ph = document.getElementById('footer-placeholder');
+        ph.outerHTML = html;
+      });
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outreach — Hansen Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="outreach">
+
+  <!-- NAV bar -->
+  <div id="nav-placeholder"></div>
+
+  <section>
+    <div class="container">
+      <h2>Science Communication &amp; Outreach</h2>
+      <p style="color:var(--muted); max-width:700px;">
+        Science belongs to society. So we communicate it broadly and publicly.
+      </p>
+
+      <div class="outreach-grid">
+
+	<!-- ===== TILE: Paint the Cilia game ===== -->
+	<div class="card outreach-card">
+	  <figure class="thumb-figure">
+	    <img class="thumb" src="images/outreach/paint_cilium_thumb.png"
+		 alt="Screenshot of the Paint the Cilia game with cilia painted in different colors">
+	    <figcaption class="photo-credit">
+	      Image in Background: <a href="https://www.proteinatlas.org/" target="_blank">HPA</a>,
+	      <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA 3.0</a>
+	    </figcaption>
+	  </figure>
+	  <h3>Paint a Cilium &amp; Relax</h3>
+          <p>
+            Fancy a calm, meditative few minutes? Paint tiny cell antennae called cilia in real
+            microscopy images.
+          </p>
+	  <button class="btn" onclick="document.getElementById('modal-game').showModal()">How it works →</button>
+	</div>
+
+        <!-- ===== TILE: KlarText Prize (article) ===== -->
+        <div class="card outreach-card">
+          <figure class="thumb-figure">
+            <a href="https://klartext-preis.de/preistraeger/dr-jan-niklas-hansen/" target="_blank">
+                <img class="thumb" src="images/outreach/klartext_photo_copyright-Annette-Mueck.jpg"
+                    alt="Portrait at the KlarText Prize ceremony"
+                    style="object-position: center 20%;">
+            </a>
+            <figcaption class="photo-credit">&copy; Annette Mueck</figcaption>
+          </figure>
+          <span class="award-badge">★ Award</span>
+          <h3>"KlarText" Science Communication Prize</h3>
+          <p>
+            Jan received the <b>KlarText Prize</b> (Klaus Tschira Foundation), an award for 
+            excellent science communication in German, recognizing his general-audience article
+            <i>Empfangstörung</i> explaining his PhD research.
+          </p>
+          <a class="btn" href="https://klartext-preis.de/meldungen/empfangsstoerung/" target="_blank">Read the article (German) ↗</a>
+        </div>
+        
+        <!-- ===== TILE: Science Comic ===== -->
+        <div class="card outreach-card">
+          <figure class="thumb-figure">            
+            <a href="https://2013.igem.org/Team:Bonn/HP/comic" target="_blank">
+                <img class="thumb" src="images/outreach/igem_comic_thumb_iGEMTeamBonn2013.png"
+                    alt="Panel from the synthetic-biology science comic">
+            </a>
+            <figcaption class="photo-credit">
+              &copy; 2013 iGEM Team Bonn,
+              <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>, cropped from comic.
+            </figcaption>
+          </figure>
+          <p>
+            As a student on the <b>iGEM Team Bonn (2013)</b>, Jan co-created a science comic introducing
+            synthetic biology principles for a general audience.
+          </p>
+          <a class="btn" href="https://2013.igem.org/Team:Bonn/HP/comic" target="_blank">Read the comic ↗</a>
+        </div>
+
+        <!-- ===== TILE: KlarText intro video ===== -->
+        <div class="card outreach-card">
+            <a href="https://www.youtube.com/watch?v=p9mUuIWWD0o" target="_blank">
+                <img class="thumb" src="https://img.youtube.com/vi/p9mUuIWWD0o/hqdefault.jpg" alt="Video thumbnail">
+            </a>
+            <h3>Jan's PhD, explained</h3>
+            <p>
+            A short film introducing Jan and his PhD research, produced for the
+            <b>KlarText Prize</b>, a German award recognizing excellence in science communication.
+            The film is in German, as it was made for the award ceremony.
+            </p>
+            <a class="btn" href="https://www.youtube.com/watch?v=p9mUuIWWD0o" target="_blank">Watch on YouTube ↗</a>
+        </div>
+
+        
+
+
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== MODALS ===== -->  
+  
+  <dialog class="tool-modal" id="modal-game">
+    <button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <div class="modal-header"><h3 style="margin:0;">🎨 Paint a Cilium</h3></div>
+
+      <figure style="margin:14px 0;">
+        <img class="figure" src="images/outreach/paint_cilium_thumb.png"
+             alt="Screenshot of the Paint the Cilia game with cilia painted in different colors">
+        <figcaption style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
+          Microscopy image from the
+          <a href="https://www.proteinatlas.org/" target="_blank">Human Protein Atlas</a>,
+          licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC&nbsp;BY-SA&nbsp;3.0</a>;
+          cilia data from
+          <a href="https://doi.org/10.1016/j.cell.2025.08.039" target="_blank">Hansen et&nbsp;al., <i>Cell</i> 2025</a>
+          (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC&nbsp;BY&nbsp;4.0</a>).
+        </figcaption>
+      </figure>
+      
+      <p>
+        Take a relaxing moment. You'll see microscopy images of <b>primary cilia</b> —
+        tiny antenna-like organelles on cells. Cilia are visible in <b>red</b>; the
+        <b>basal body</b> — the structure anchoring the cilium to the cell — is
+        <b>yellow</b>; the cell <b>nucleus</b> is <b>blue</b>.
+      </p>
+      
+      <p>
+        Do scientists really do this? Yes, they do! Many AI models to detect subcellular
+        structures have been trained by scientists marking structures in real microscopy
+        images.
+      </p>
+      
+      <p style="color:var(--muted); font-size:0.95rem;"><b>How to play:</b></p>
+      <ol style="color:var(--muted); font-size:0.95rem; line-height:1.6;">
+        <li>Pick a color and <b>paint over one cilium</b>.</li>
+        <li>Use a <b>different color</b> for each separate cilium.</li>
+        <li>Golden rule: <b>never give two touching cilia the same color</b>.</li>
+        <li>Feedback: At the top of the image, our app gives you <b>feedback</b> on whether you hit a signal-intense region = you hit a cilium.</li>
+        <li>If needed, adjust brightness/contrast to see faint cilia; use the eraser or undo to fix mistakes.</li>
+        <li>You can <b>download your annotation</b> and share it with us (if you like) or train your own AI model with it.</li>
+        <li>Load a new image any time.</li>
+      </ol>
+      <p style="color:var(--muted); font-size:0.85rem;">No experience needed — every contribution helps!</p>
+      <div class="links">
+        <a href="game.html">Start painting →</a>
+      </div>
+    </div>
+  </dialog>
+  
+  <!-- ===== FOOTER ===== -->  
+  <div id="footer-placeholder"></div>
+  
+  
+  <!-- Add modal -->
+  <script>
+    document.querySelectorAll('dialog.tool-modal').forEach(function (d) {
+      d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+    });
+  </script>
+  
+  <!-- Add nav and footer -->
+  <script>
+    // Measure the real nav height and store it as a CSS variable
+    function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+      }
+    }
+    
+    // Header
+    fetch('nav.html')
+      .then(r => r.text())
+      .then(html => {
+        const placeholder = document.getElementById('nav-placeholder');
+        placeholder.outerHTML = html;   // replaces the div with the nav directly
+
+        // highlight active page
+        const page = document.body.dataset.page;
+        const link = document.querySelector('[data-nav="' + page + '"]');
+        if (link) link.classList.add('active');
+
+        // measure nav height (after nav is in the DOM)
+        setNavHeight();
+        window.addEventListener('resize', setNavHeight);
+      });
+
+    // FOOTER
+    fetch('footer.html')
+      .then(r => r.text())
+      .then(html => {
+        const ph = document.getElementById('footer-placeholder');
+        ph.outerHTML = html;
+      });
+  </script>
+  
+</body>
+</html>

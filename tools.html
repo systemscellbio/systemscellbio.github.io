@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools — Hansen Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="tools">
+
+	<!-- NAV bar -->
+	<div id="nav-placeholder"></div>
+
+	<!-- ===== FIXED FULL-SCREEN MAP BACKGROUND ===== -->
+	<div class="map-hero">
+	<div class="map-stack">
+		<img class="map-base" src="images/tools/WorldMap.png" alt="World map">
+		<img class="map-dots dots-1" src="images/tools/WorldMap_SpermQ.png" alt="Labs supported with SpermQ">
+		<img class="map-dots dots-2" src="images/tools/WorldMap_SpermQ_CiliaQ.png" alt="Labs supported with SpermQ and CiliaQ">
+	</div>
+	</div>
+
+	<!-- ===== TRANSPARENT SPACER — heading at BOTTOM (like home) ===== -->
+	<header class="map-hero-spacer">
+	<!-- Legend pinned bottom-left of the hero -->
+	<div class="map-legend">
+		<span class="legend-title">Labs taught to apply:</span>
+		<span><span class="dot dot-spermq"></span> SpermQ</span>
+		<span><span class="dot dot-ciliaq"></span> CiliaQ</span>
+	</div>
+
+	<!-- Dot color legend -->
+	<div class="map-legend">
+	<span><span class="dot dot-spermq"></span> SpermQ</span>
+	<span><span class="dot dot-ciliaq"></span> CiliaQ</span>
+	</div>
+
+	<div class="container">
+		<h1>Supporting labs worldwide with open source analysis software for automated, reproducible quantification of microscopy images.</h1>
+			
+		<div class="scroll-hint">
+		<a href="#tools-list">Explore the tools</a>
+		<a href="#tools-list"><span class="chevron"></span></a>
+		</div>
+	</div>
+	</header>
+
+	<!-- ===== CONTENT PANEL slides up over the map ===== -->
+	<div class="content-panel">
+		<section id="tools-list">
+		<div class="container">
+			<h2>Tools &amp; Software</h2>
+			<p>Open-source ImageJ/Fiji plugins developed for automated, reproducible image analysis.</p>
+
+			<div class="grid">
+
+		<!-- ===== TOOL CARD: CiliaQ ===== -->
+		<div class="card tool-card">
+			<img class="tool-logo" src="images/tools/Logo_CiliaQ.png" alt="CiliaQ">
+			<p>Quantify ciliary shape, length, and fluorescence in 2D, 3D, and 4D images.</p>
+			<button class="btn" onclick="document.getElementById('modal-ciliaq').showModal()">Learn more →</button>
+		</div>
+
+		<!-- ===== MODAL: CiliaQ (place anywhere; id must match button) ===== -->
+		<dialog class="tool-modal" id="modal-ciliaq">
+			<button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+			<div class="modal-body">
+			<div class="modal-header">
+				<img src="images/tools/Logo_CiliaQ.png" alt="CiliaQ">
+			</div>
+
+			<p>
+				CiliaQ is a package of open-source ImageJ plugins for high-throughput analysis of static or
+				time-lapse fluorescence images of cilia, determining parameters for morphology, length, bending,
+				orientation, and fluorescence intensity.
+			</p>
+
+			<figure style="margin:14px 0;">
+				<img class="figure" src="images/tools/ciliaq_graphical_abstract.png"
+					alt="CiliaQ graphical abstract: microscopy inputs analysed into ciliary morphology and fluorescence parameters">
+				<figcaption style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
+				Graphical abstract from
+				<a href="https://doi.org/10.1140/epje/s10189-021-00031-y" target="_blank">Hansen et&nbsp;al. (2021), <i>Eur. Phys. J. E</i> 44, 18</a>,
+				licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC&nbsp;BY&nbsp;4.0</a>.
+				<!-- If you crop/resize/recolor it, add: "Image cropped for display." -->
+				</figcaption>
+			</figure>
+
+			<div class="links">
+				<a href="https://github.com/hansenjn/CiliaQ/" target="_blank">GitHub ↗</a>
+				<a href="https://doi.org/10.1140/epje/s10189-021-00031-y" target="_blank">Paper ↗</a>
+				<a href="https://github.com/hansenjn/CiliaQ/wiki/Home/" target="_blank">Wiki ↗</a>
+			</div>
+
+			<div class="citation">
+				Hansen JN, Rassmann S, Stueven B, Jurisch-Yaksi N, Wachten D.
+				<b>CiliaQ: a simple, open-source software for automated quantification of ciliary morphology and
+				fluorescence in 2D, 3D, and 4D images.</b> <i>Eur. Phys. J. E</i> 44, 18 (2021).
+				<a href="https://doi.org/10.1140/epje/s10189-021-00031-y">doi:10.1140/epje/s10189-021-00031-y</a>
+			</div>
+			</div>
+		</dialog>
+		<!-- ===== END MODAL: CiliaQ ===== -->
+
+		<!-- ===== TOOL CARD: MotiQ ===== -->
+		<div class="card tool-card">
+			<img class="tool-logo" src="images/tools/Logo_MotiQ.png" alt="MotiQ">
+			<p>Quantify dynamics, morphology, and fluorescence of microglia (and other cells) in 2D/3D.</p>
+			<button class="btn" onclick="document.getElementById('modal-motiq').showModal()">Learn more →</button>
+		</div>
+
+		<!-- ===== MODAL: MotiQ ===== -->
+		<dialog class="tool-modal" id="modal-motiq">
+			<button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+			<div class="modal-body">
+			<div class="modal-header">
+				<img src="images/tools/Logo_MotiQ.png" alt="MotiQ">
+			</div>
+
+			<p>
+				MotiQ is an open-source toolbox of ImageJ plugins to quantify the motility, morphology, and
+				fluorescence of microglia, macrophages, or any other cells or subcellular structures. It computes 60+ parameters
+				and works with <i>in vivo</i>, <i>ex vivo</i>, and <i>in vitro</i> data from confocal, epifluorescence, or two-photon
+				microscopy.
+			</p>
+
+			<figure>
+				<img class="figure" src="images/tools/motiq_figure1.jpg"
+					alt="MotiQ 2D and 3D analysis workflows: raw microscopy through cropping, thresholding, to quantified cell reconstructions">
+				<figcaption style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
+				Figure 1 from
+				<a href="https://doi.org/10.1091/mbc.E21-11-0585" target="_blank">Hansen et&nbsp;al. (2022), <i>Mol. Biol. Cell</i> 33:11</a>.
+				© 2022 Hansen et&nbsp;al., licensed under
+				<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC&nbsp;BY-NC-SA&nbsp;4.0</a>.
+				Reproduced unmodified.
+				</figcaption>
+			</figure>
+
+			<div class="links">
+				<a href="https://github.com/hansenjn/MotiQ" target="_blank">GitHub ↗</a>
+				<a href="https://doi.org/10.1091/mbc.E21-11-0585" target="_blank">Paper ↗</a>
+			</div>
+
+			<div class="citation">
+				Hansen JN, Brückner M, Pietrowski MJ, Jikeli JF, Plescher M, Beckert H, Schnaars M, Fülle L,
+				Reitmeier K, Langmann T, Förster I, Boche D, Petzold GC, Halle A.
+				<b>MotiQ: an open-source toolbox to quantify the cell motility and morphology of microglia.</b>
+				<i>Mol. Biol. Cell</i> 33:11 (2022).
+				<a href="https://doi.org/10.1091/mbc.E21-11-0585">doi:10.1091/mbc.E21-11-0585</a>
+			</div>
+			</div>
+		</dialog>
+		<!-- ===== END MODAL: MotiQ ===== -->
+		
+		<!-- ===== TOOL CARD: AdipoQ ===== -->
+		<div class="card tool-card">
+			<img class="tool-logo" src="images/tools/Logo_AdipoQ.png" alt="AdipoQ">
+			<p>Quantify adipocyte morphology and function in tissue sections and in vitro.</p>
+			<button class="btn" onclick="document.getElementById('modal-adipoq').showModal()">Learn more →</button>
+		</div>
+
+		<!-- ===== MODAL: AdipoQ ===== -->
+		<dialog class="tool-modal" id="modal-adipoq">
+			<button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+			<div class="modal-body">
+			<div class="modal-header">
+				<img src="images/tools/Logo_AdipoQ.png" alt="AdipoQ">
+			</div>
+
+			<p>
+				AdipoQ is a simple, open-source toolbox of two ImageJ plugins to quantify adipocyte morphology
+				and function, in tissue sections and <i>in vitro</i>, after histological or immunofluorescent labeling.
+				It is compatible with different imaging modalities, supports batch processing of large datasets,
+				and combines readouts from multiple fluorescence channels.
+			</p>
+
+			<p style="color:var(--muted); font-size:0.95rem;">
+				<b>Included plugins:</b> AdipoQ_Preparator (segment adipocytes, lipid droplets, or nuclei from
+				background) and AdipoQ_Analyzer (quantify objects — count, size, and intensity within and around
+				each object across all channels). R markdown templates are provided for post-hoc analysis.
+			</p>
+
+			<figure>
+				<img class="figure" src="images/tools/adipoq_figure1.jpg"
+					alt="AdipoQ workflow: histological and fluorescence images processed by AdipoQ Preparator into masks, then quantified by AdipoQ Analyzer">
+				<figcaption style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
+				Figure 1 from
+				<a href="https://doi.org/10.1091/mbc.E21-11-0592" target="_blank">Sieckmann et&nbsp;al. (2022), <i>Mol. Biol. Cell</i> 33:12</a>.
+				© 2022 Sieckmann et&nbsp;al., licensed under
+				<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC&nbsp;BY-NC-SA&nbsp;4.0</a>.
+				Reproduced unmodified.
+				</figcaption>
+			</figure>
+
+			<div class="links">
+				<a href="https://github.com/hansenjn/AdipoQ" target="_blank">GitHub ↗</a>
+				<a href="https://doi.org/10.1091/mbc.E21-11-0592" target="_blank">Paper ↗</a>
+			</div>
+
+			<div class="citation">
+				Sieckmann K, Winnerling N, Huebecker M, Leyendecker P, Silva Ribeiro DJ, Gnad T, Pfeifer A,
+				Wachten D, Hansen JN.
+				<b>AdipoQ — a simple, open-source software to quantify adipocyte morphology and function in tissues
+				and in vitro.</b> <i>Mol. Biol. Cell</i> 33:12 (2022).
+				<a href="https://doi.org/10.1091/mbc.E21-11-0592">doi:10.1091/mbc.E21-11-0592</a>
+			</div>
+			</div>
+		</dialog>
+		<!-- ===== END MODAL: AdipoQ ===== -->
+
+		<!-- ===== TOOL CARD: FreQ ===== -->
+		<div class="card tool-card">
+			<img class="tool-logo" src="images/tools/Logo_FreQ.png" alt="FreQ">
+			<p>Analyze pixel-intensity oscillations in time-lapse 2D images — e.g., ciliary beat frequency.</p>
+			<button class="btn" onclick="document.getElementById('modal-freq').showModal()">Learn more →</button>
+		</div>
+
+		<!-- ===== MODAL: FreQ ===== -->
+		<dialog class="tool-modal" id="modal-freq">
+			<button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+			<div class="modal-body">
+			<div class="modal-header">
+				<img src="images/tools/Logo_FreQ.png" alt="FreQ">
+			</div>
+
+			<p>
+				FreQ is an ImageJ plugin that extracts periodic changes in pixel intensity, such as those evoked
+				by ciliary beating, and analyzes them using a Fast Fourier Transform to determine paramters like
+				the (ciliary beat) frequency. It is well suited to characterize the ciliary beat of
+				multi-ciliated cells in time-lapse bright-field or phase-contrast images.
+			</p>
+
+			<p style="color:var(--muted); font-size:0.95rem;">
+				Note: early versions (v0.0.1–v0.2.3) were named “Cilility_JNH”; from v0.3.0 the plugin is called FreQ.
+			</p>
+			
+			<p style="color:var(--muted); font-size:0.95rem;">
+				<b>Background &amp; related work:</b> FreQ's analysis was inspired by the MATLAB-based approaches in
+				<a href="https://doi.org/10.1016/j.cub.2018.11.059" target="_blank">Olstad et&nbsp;al., <i>Curr. Biol.</i> 2019</a>
+				and
+				<a href="https://doi.org/10.1016/j.celrep.2021.109775" target="_blank">D'Gama et&nbsp;al., <i>Cell Rep.</i> 2021</a>,
+				which characterize motile-cilia beating in the zebrafish brain.
+			</p>
+
+			<!-- ===== FIGURE PLACEHOLDER =====
+					No suitable figure yet. When ready, add a graphical abstract here, e.g.:
+			<figure>
+				<img class="figure" src="images/tools/freq_example.webp" alt="FreQ frequency analysis example">
+				<figcaption style="font-size:0.8rem; color:var(--muted); margin-top:6px;">EDIT: caption / credit.</figcaption>
+			</figure>
+			================================== -->
+
+			<div class="links">
+				<a href="https://github.com/hansenjn/FreQ" target="_blank">GitHub ↗</a>
+				<a href="https://github.com/hansenjn/FreQ/wiki" target="_blank">Wiki ↗</a>
+				<a href="https://doi.org/10.1016/j.xpro.2022.101542" target="_blank">Paper ↗</a>
+			</div>
+
+			<div class="citation">
+				Please acknowledge the analysis methodology by citing:<br>
+				Jeong I, Hansen JN, Wachten D, Jurisch-Yaksi N.
+				<b>Measurement of ciliary beating and fluid flow in the zebrafish adult telencephalon.</b>
+				<i>STAR Protoc.</i> 3(3):101542 (2022).
+				<a href="https://doi.org/10.1016/j.xpro.2022.101542">doi:10.1016/j.xpro.2022.101542</a>
+			</div>
+			</div>
+		</dialog>
+		<!-- ===== END MODAL: FreQ ===== -->
+
+		<!-- ===== TOOL CARD: SpermQ ===== -->
+		<div class="card tool-card">
+			<img class="tool-logo" src="images/tools/Logo_SpermQ.png" alt="SpermQ">
+			<p>Comprehensively quantify the flagellar beat of sperm and sperm steering from time-lapse images.</p>
+			<button class="btn" onclick="document.getElementById('modal-spermq').showModal()">Learn more →</button>
+		</div>
+
+		<!-- ===== MODAL: SpermQ ===== -->
+		<dialog class="tool-modal" id="modal-spermq">
+			<button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+			<div class="modal-body">
+			<div class="modal-header">
+				<img src="images/tools/Logo_SpermQ.png" alt="SpermQ">
+			</div>
+
+			<p>
+				SpermQ is a ready-to-use ImageJ plugin for detailed, automated quantification of the flagellar beat
+				and sperm steering, from 2D time-lapse images acquired by dark-field or epifluorescence microscopy.
+				It reconstructs the flagellum frame-by-frame and outputs head and flagellar parameters (e.g.,
+				beat frequency via Fast Fourier Transform) for both tethered and freely-swimming sperm.
+			</p>
+
+			<p style="color:var(--muted); font-size:0.95rem;">
+				<b>Workflow:</b> preprocess with SpermQ Preparator (background reduction, contrast, batch processing),
+				analyze with SpermQ (fully automated), then convolve results across many flagella with SpermQ Evaluator
+				(a pure-Java tool producing overview tables and per-flagellum PDF plots).
+			</p>
+
+			<figure>
+				<img class="figure" src="https://www.mdpi.com/cells/cells-08-00010/article_deploy/html/images/cells-08-00010-g002.png"
+					alt="SpermQ flagellum reconstruction: raw image, skeletonized rough track, normal lines with Gaussian fitting, and precise flagellar track">
+				<figcaption style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
+				Figure 2 from
+				<a href="https://doi.org/10.3390/cells8010010" target="_blank">Hansen et&nbsp;al. (2019), <i>Cells</i> 8, 10</a>,
+				licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC&nbsp;BY&nbsp;4.0</a>.
+				</figcaption>
+			</figure>
+
+			<div class="links">
+				<a href="https://github.com/hansenjn/SpermQ" target="_blank">GitHub ↗</a>
+				<a href="https://doi.org/10.3390/cells8010010" target="_blank">Paper ↗</a>
+			</div>
+
+			<div class="citation">
+				Hansen JN, Rassmann S, Jikeli JF, Wachten D.
+				<b>SpermQ — a simple analysis software to comprehensively study flagellar beating and sperm steering.</b>
+				<i>Cells</i> 8, 10 (2019).
+				<a href="https://doi.org/10.3390/cells8010010">doi:10.3390/cells8010010</a>
+			</div>
+			</div>
+		</dialog>
+		<!-- ===== END MODAL: SpermQ ===== -->
+
+		<!-- ===== TOOL CARD: Multifocal Imaging Toolbox ===== -->
+		<div class="card tool-card">
+			<!-- No dedicated toolbox logo yet: using a text title. Swap for an <img> later if you make one. -->
+			<img src="images/tools/Logo_MF.png" alt="MF Toolbox" style="max-width:70px; height:auto; display:block; margin:0 auto;">
+			<h3 style="margin-top:24px;">Multifocal Imaging Toolbox</h3>
+			<p>Label-free 3D tracking of fast biological processes — including SpermQ-MF for multifocal flagellar analysis.</p>
+			<button class="btn" onclick="document.getElementById('modal-mfi').showModal()">Learn more →</button>
+		</div>
+
+		<!-- ===== MODAL: Multifocal Imaging Toolbox ===== -->
+		<dialog class="tool-modal" id="modal-mfi">
+			<button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+			<div class="modal-body">
+			<div class="modal-header">
+			<img src="images/tools/Logo_MF.png" alt="MF Toolbox" style="max-width:50px; height:auto; display:block;">
+			<h3 style="margin:0;">Multifocal Imaging Analysis Toolbox</h3>
+			</div>
+
+			<p>
+				An open-source toolbox for <b>multifocal imaging (MFI)</b> representing a cost-effective, label-free approach
+				for high-speed 3D imaging. Our 3D reconstruction algorithm tracks spherical and filamentous
+				structures across a large field of view and depth from MF images: we characterized fluid flow and the flagellar
+				beat of human and sea urchin sperm with z-precision of 0.15&nbsp;µm, in a volume of
+				240&nbsp;×&nbsp;260&nbsp;×&nbsp;21&nbsp;µm, at 500&nbsp;Hz.
+			</p>
+
+			<p style="color:var(--muted); font-size:0.95rem;">
+				<b>Included tools:</b> Multifocal_Preparation, MultiFocalParticleTracker-Calibrator-3,
+				MultiFocal_AlignCurvesByLMS, MultiFocalParticleTracker-Complex-3,
+				<b>SpermQ-MF</b> (analyzing flagella/filaments in multifocal images, building on SpermQ),
+				SpermQ-MF_GenerateLUT, plus MATLAB scripts for data exploration.
+			</p>
+
+			<figure>
+				<img class="figure" src="images/tools/MF_41467_2021_24768_Fig4_HTML.png"
+					alt="Multifocal imaging: 3D reconstruction of the human sperm flagellar beat and swimming trajectory">
+				<figcaption style="font-size:0.8rem; color:var(--muted); margin-top:6px;">
+				Figure 4 from
+				<a href="https://doi.org/10.1038/s41467-021-24768-4" target="_blank">Hansen et&nbsp;al. (2021), <i>Nat. Commun.</i> 12, 4574</a>,
+				licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC&nbsp;BY&nbsp;4.0</a>.
+				</figcaption>
+			</figure>
+
+			<div class="links">
+				<a href="https://github.com/hansenjn/MultifocalImaging-AnalysisToolbox" target="_blank">GitHub ↗</a>
+				<a href="https://doi.org/10.1038/s41467-021-24768-4" target="_blank">Paper ↗</a>
+			</div>
+
+			<div class="citation">
+				Hansen JN, Gong A, Wachten D, Pascal R, Turpin A, Jikeli JF, Kaupp UB, Alvarez L.
+				<b>Multifocal imaging for precise, label-free tracking of fast biological processes in 3D.</b>
+				<i>Nat. Commun.</i> 12, 4574 (2021).
+				<a href="https://doi.org/10.1038/s41467-021-24768-4">doi:10.1038/s41467-021-24768-4</a>
+			</div>
+			</div>
+		</dialog>
+		<!-- ===== END MODAL: Multifocal Imaging Toolbox ===== -->
+
+			</div>
+		</div>
+		</section>
+	</div>
+	
+
+	<!-- ===== FOOTER ===== -->  
+	<div id="footer-placeholder"></div>
+  
+	<!-- ===== TOOL CARD TOGGLE ===== -->
+	<script>
+		function toggleTool(btn) {
+			const details = btn.nextElementSibling;   // the .tool-details right after the button
+			const open = details.classList.toggle('open');
+			btn.textContent = open ? 'Show less ↑' : 'Learn more →';
+		}
+		</script>
+
+		<!-- Close modal when clicking outside its content -->
+		<script>
+		document.querySelectorAll('dialog.tool-modal').forEach(function (d) {
+			d.addEventListener('click', function (e) {
+			if (e.target === d) d.close();   // clicked the backdrop area, not the content
+			});
+		});
+	</script>
+
+	<!-- Lock page scroll position while a modal is open -->
+	<script>
+		document.querySelectorAll('dialog.tool-modal').forEach(function (d) {
+			d.addEventListener('close', function () {
+			document.body.style.overflow = '';   // restore on close
+			});
+		});
+		// when opening (delegate on buttons)
+		document.querySelectorAll('.tool-card .btn').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+			document.body.style.overflow = 'hidden';  // prevent background scroll
+			});
+		});
+	</script>
+
+	<!-- Add nav and footer -->
+	<script>
+	// Measure the real nav height and store it as a CSS variable
+	    function setNavHeight() {
+	      const nav = document.querySelector('nav');
+	      if (nav) {
+		document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+	      }
+	    }
+	    
+	    // Header
+	    fetch('nav.html')
+	      .then(r => r.text())
+	      .then(html => {
+		const placeholder = document.getElementById('nav-placeholder');
+		placeholder.outerHTML = html;   // replaces the div with the nav directly
+
+		// highlight active page
+		const page = document.body.dataset.page;
+		const link = document.querySelector('[data-nav="' + page + '"]');
+		if (link) link.classList.add('active');
+
+		// measure nav height (after nav is in the DOM)
+		setNavHeight();
+		window.addEventListener('resize', setNavHeight);
+	      });
+
+	// FOOTER
+	fetch('footer.html')
+		.then(r => r.text())
+		.then(html => {
+		const ph = document.getElementById('footer-placeholder');
+		ph.outerHTML = html;
+		});
+	</script>
+
+</body>
+</html>

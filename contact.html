@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Hansen Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="contact">
+
+  <!-- NAV bar -->
+  <div id="nav-placeholder"></div>
+
+
+  <!-- ===== FIXED BACKGROUND CAROUSEL (Stockholm gallery) ===== -->
+  <div class="carousel" id="carousel">
+    <div class="slide active">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/SciLifeLab_Night.webm" type="video/webm">
+      </video>
+      <div class="caption">SciLifeLab in winter evening | &#169; Jan N. Hansen</div>
+    </div>
+
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/Scating.mp4" type="video/mp4">
+      </video>
+      <div class="caption">Winter icescating closeby | &#169; Jan N. Hansen</div>
+    </div>
+    
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/SUPing.mp4" type="video/mp4">
+      </video>
+      <div class="caption">SUP during summer night | &#169; Jan N. Hansen</div>
+    </div>
+    
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/Fotografiska.webm" type="video/webm">
+      </video>
+      <div class="caption">Fotografiska and gamla stan | &#169; Jan N. Hansen</div>
+    </div>
+    
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/Brunsviken_top.webm" type="video/webm">
+      </video>
+      <div class="caption">Lake near SciLifeLab | &#169; Jan N. Hansen</div>
+    </div>
+    
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/Sveavagen.webm" type="video/webm">
+      </video>
+      <div class="caption">Stockholm in late spring | &#169; Jan N. Hansen</div>
+    </div>
+        
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/Sunset.webm" type="video/webm">
+      </video>
+      <div class="caption">Summer sunset | &#169; Jan N. Hansen</div>
+    </div>
+    
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/Snowing.mp4" type="video/mp4">
+      </video>
+      <div class="caption">November evening | &#169; Jan N. Hansen</div>
+    </div>
+        
+    <div class="slide">
+      <video muted playsinline loop autoplay>
+        <source src="images/stockholm/SciLifeLab_Night_2.webm" type="video/webm">
+      </video>
+      <div class="caption">SciLifeLab at night | &#169; Jan N. Hansen</div>
+    </div>
+
+  </div>
+
+  <!-- ===== HERO SPACER (title over the carousel) ===== -->
+  <header class="hero-spacer">
+    <div class="container">
+      <h1>Contact &amp; Visit</h1>
+      <p class="tagline">Find us at SciLifeLab in Stockholm.</p>
+    </div>
+    <div class="carousel-dots" id="carousel-dots"></div>
+    <div class="scroll-hint">
+    	<a href="#contact"><span class="chevron"></span></a>
+    	</div>
+  </header>
+
+  <!-- ===== CONTENT PANEL (scrolls over carousel) ===== -->
+  <div class="content-panel">
+	<section id="contact">
+	    <div class="container">
+	      <h2>Contact</h2>
+	      <div class="card">
+		<p><strong>Email:</strong> jan.hansen[at]scilifelab.se</p>
+		<p style="color:var(--accent-warm)">Prospective students and collaborators are always welcome to get in touch.</p>
+	      </div>
+	    
+	      <div class="map-embed">
+		 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!3323.33!2d18.02071665131163!3d59.35015413257294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f9d9c044c1fe5%3A0xfff6f935131557c1!2sSciLifeLab!5e1!3m2!1ssv!2sus!4v1788490341219!5m2!1ssv!2sus" width="100%" height="400"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer"></iframe>
+	      </div>
+	    </div>
+	</section>
+  </div>
+  
+  
+
+  <!-- ===== FOOTER ===== -->  
+  <div id="footer-placeholder"></div>
+  
+  <!-- Add nav and footer -->
+  <script>
+    // Measure the real nav height and store it as a CSS variable
+    function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+      }
+    }
+    
+    // Header
+    fetch('nav.html')
+      .then(r => r.text())
+      .then(html => {
+        const placeholder = document.getElementById('nav-placeholder');
+        placeholder.outerHTML = html;   // replaces the div with the nav directly
+
+        // highlight active page
+        const page = document.body.dataset.page;
+        const link = document.querySelector('[data-nav="' + page + '"]');
+        if (link) link.classList.add('active');
+
+        // measure nav height (after nav is in the DOM)
+        setNavHeight();
+        window.addEventListener('resize', setNavHeight);
+      });
+    // FOOTER
+    fetch('footer.html')
+      .then(r => r.text())
+      .then(html => {
+        const ph = document.getElementById('footer-placeholder');
+        ph.outerHTML = html;
+      });
+  </script>
+  
+  <script>
+    (function () {
+      const carousel = document.getElementById('carousel');
+      const slides = carousel.querySelectorAll('.slide');
+      const dotsWrap = document.getElementById('carousel-dots');
+      let i = 0;
+
+      // Build dots
+      slides.forEach((_, idx) => {
+        const b = document.createElement('button');
+        if (idx === 0) b.classList.add('active');
+        b.addEventListener('click', () => show(idx));
+        dotsWrap.appendChild(b);
+      });
+      const dots = dotsWrap.querySelectorAll('button');
+
+      function show(n) {
+        // pause + reset outgoing video
+        const oldVid = slides[i].querySelector('video');
+        if (oldVid) { oldVid.pause(); oldVid.currentTime = 0; }
+        slides[i].classList.remove('active');
+        dots[i].classList.remove('active');
+
+        i = n;
+
+        slides[i].classList.add('active');
+        dots[i].classList.add('active');
+        // play incoming video from start
+        const newVid = slides[i].querySelector('video');
+        if (newVid) { newVid.currentTime = 0; newVid.play().catch(()=>{}); }
+      }
+
+      // Auto-advance every 6s
+      setInterval(() => show((i + 1) % slides.length), 2200);
+    })();
+  </script>
+
+</body>
+</html>

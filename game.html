@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paint the Cilia — Lastname Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="game">
+
+  <div id="nav-placeholder"></div>
+  <div class="game-wrap">
+	  <div class="game-layout">
+
+	    <!-- SIDEBAR -->
+	    <aside class="game-sidebar">
+	      <h2>🎨 Paint the Cilia</h2>
+	      <div class="instructions">
+		<ol>
+		  <li>Pick a color, paint <b>one cilium</b>.</li>
+		  <li>Use a <b>new color</b> for each cilium.</li>
+		  <li>Never give <b>touching</b> cilia the same color.</li>
+		  <li>Use the hand ✋ to pan, +/− to zoom.</li>
+		  <li>Download when done — grab a new image anytime.</li>
+		</ol>
+	      </div>
+
+	      <div><b style="font-size:0.85rem;">Colors / tools</b></div>
+	      <div class="palette" id="palette"></div>
+
+	      <div class="ctrl">Brush: <span id="brushVal">3</span> px
+		<input type="range" id="brush" min="1" max="40" value="3">
+	      </div>
+	      <div class="ctrl">Brightness
+		<input type="range" id="brightness" min="50" max="300" value="220">
+	      </div>
+	      <div class="ctrl">Contrast
+		<input type="range" id="contrast" min="50" max="300" value="100">
+	      </div>
+	      
+	      <div class="zoom-row">
+		<button class="btn" id="zoomOut">− Zoom</button>
+		<button class="btn" id="zoomIn">+ Zoom</button>
+		<button class="btn" id="zoomReset">Reset</button>
+	      </div>
+
+	      <div class="ctrl">
+		Your name
+		<input type="text" id="userName" value="anonymous_brush"
+		       style="width:100%; padding:6px 8px; margin-top:4px;
+		              border:1px solid var(--border); border-radius:var(--radius);
+		              background:var(--bg); color:var(--text);">
+	      </div>
+
+	      <div class="btn-col">
+		<button class="btn" id="undo">Undo</button>
+		<button class="btn" id="clear">Clear</button>
+		<button class="btn" id="newImg">New image</button>
+		<button class="btn" id="download">Download annotation</button>
+	      </div>
+	    </aside>
+	    
+	    <!-- STAGE (canvas) -->
+	    <div class="game-stage" id="stage">	    
+		<div class="game-topbar">
+		<p id="paintFeedback" style="margin:0;"></p>
+		</div>
+		<div class="canvas-stack" id="stack">
+		<canvas id="imgCanvas"></canvas>
+		<canvas id="paintCanvas"></canvas>
+		</div>	 
+				
+		<!-- bottom credit bar overlaying the image -->
+		<div class="game-creditbar">
+		  <span id="creditNote"></span>
+		  <span class="credit-static">·
+		    Images: <a href="https://www.proteinatlas.org/" target="_blank">Human Protein Atlas</a>
+		    (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA 3.0</a>);
+		    cilia data: <a href="https://doi.org/10.1016/j.cell.2025.08.039" target="_blank">Hansen et al., Cell 2025</a>
+		    (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>).
+		  </span>
+		</div>     
+	    </div>
+	    
+	  </div>	    
+    </div>
+	  
+  <script>
+    // ---- image source ----
+    let IMAGES = ["https://images.proteinatlas.org/8410/2127_E8_76_blue_red_yellow.jpg"];
+    async function loadImageList(){ try{ const r=await fetch('cilia_images.json'); if(r.ok){ const l=await r.json(); if(Array.isArray(l)&&l.length) IMAGES=l; } }catch(e){} }
+
+    const palette = ["#e6194B","#3cb44b","#ffe119","#4363d8","#f58231","#911eb4","#42d4f4","#f032e6","#bfef45","#fabed4","#469990","#dcbeff"];
+    const ERASER="__eraser__", HAND="__hand__";
+    let tool = palette[0];   // current color, or ERASER/HAND
+    let color = palette[0];
+    let lastPaintedColor = null;
+    let currentStrokePoints = [];
+
+    const stage = document.getElementById('stage');
+    const stack = document.getElementById('stack');
+    const imgCanvas = document.getElementById('imgCanvas');
+    const paintCanvas = document.getElementById('paintCanvas');
+    const ictx = imgCanvas.getContext('2d');
+    const pctx = paintCanvas.getContext('2d');
+    const brushEl = document.getElementById('brush');
+    const brushVal = document.getElementById('brushVal');
+    const brightnessEl = document.getElementById('brightness');
+    const contrastEl = document.getElementById('contrast');
+    const creditNote = document.getElementById('creditNote');
+    const feedbackEl = document.getElementById('paintFeedback');   // ← ADDED
+
+    // ---- raw canvas for intensity checks ----   ← ADDED BLOCK
+    let rawCanvas = document.createElement('canvas');
+    let rawCtx = rawCanvas.getContext('2d', { willReadFrequently: true });
+    let redThreshold = 0;
+    let rawData = null;
+
+    // ---- name field (with remember via localStorage) ----
+    const nameEl = document.getElementById('userName');
+    nameEl.value = localStorage.getItem('ciliaAnnotator') || 'anonymous_brush';
+    nameEl.oninput = () => localStorage.setItem('ciliaAnnotator', nameEl.value);
+
+    let img = new Image();
+    let currentURL = null;
+    let paintData = {};
+    let undoStack = [];
+
+    // view transform (zoom/pan)
+    let scale = 1, tx = 0, ty = 0;
+
+    // ---- palette + tools UI ----
+    const pal = document.getElementById('palette');
+    palette.forEach((c,i)=>{
+      const s=document.createElement('div');
+      s.className='swatch'+(i===0?' active':''); s.style.background=c; s.title="Cilium "+(i+1);
+      s.onclick=()=>selectTool(c,s);
+      pal.appendChild(s);
+    });
+    const eraser=document.createElement('div'); eraser.className='swatch eraser'; eraser.title='Eraser';
+    eraser.onclick=()=>selectTool(ERASER,eraser); pal.appendChild(eraser);
+    const hand=document.createElement('div'); hand.className='swatch hand'; hand.title='Pan (hand)'; hand.textContent='✋';
+    hand.onclick=()=>selectTool(HAND,hand); pal.appendChild(hand);
+
+    function selectTool(t, el){
+      tool = t; if(t!==ERASER && t!==HAND) color = t;
+      document.querySelectorAll('.swatch').forEach(e=>e.classList.remove('active'));
+      el.classList.add('active');
+      paintCanvas.style.cursor = (t===HAND)?'grab':(t===ERASER?'cell':'crosshair');
+    }
+
+    brushEl.oninput = ()=> brushVal.textContent = brushEl.value;
+
+    // ---- load / draw image ----
+    function loadImage(url){
+      currentURL=url; img=new Image(); img.crossOrigin="anonymous";
+      img.onload=()=>{
+        imgCanvas.width=paintCanvas.width=img.width;
+        imgCanvas.height=paintCanvas.height=img.height;
+        drawImage(); pctx.clearRect(0,0,img.width,img.height);
+        paintData={}; undoStack=[];
+        fitToStage();
+        creditNote.innerHTML = 'Current image: <a href="' + url + '" target="_blank">' + url + '</a>';
+
+        // --- populate raw canvas + compute red background threshold ---
+        rawCanvas.width = img.width; rawCanvas.height = img.height;
+        rawCtx.drawImage(img, 0, 0);
+        try {
+          computeRedThreshold();
+        } catch(e) {
+          redThreshold = null;
+          rawData = null;
+          console.warn("Red-intensity check disabled (image not CORS-accessible).", e);
+        }
+
+        if (feedbackEl) feedbackEl.textContent = "";  // clear feedback on new image
+        const bar = document.querySelector('.game-topbar');
+        if (bar) bar.classList.remove('has-msg');   // hide background on new image
+      };
+      img.onerror=()=>{ creditNote.textContent="Image failed, trying another…"; nextImage(); };
+      img.src=url;
+    }
+    function nextImage(){ loadImage(IMAGES[Math.floor(Math.random()*IMAGES.length)]); }
+    function drawImage(){
+      ictx.filter=`brightness(${brightnessEl.value}%) contrast(${contrastEl.value}%)`;
+      ictx.drawImage(img,0,0); ictx.filter="none";
+    }
+    brightnessEl.oninput=contrastEl.oninput=drawImage;
+
+    // ---- view transform ----
+    function applyTransform(){ stack.style.transform=`translate(${tx}px,${ty}px) scale(${scale})`; }
+    function fitToStage(){
+      const sw=stage.clientWidth, sh=stage.clientHeight;
+      scale = Math.min(sw/img.width, sh/img.height);
+      tx = (sw - img.width*scale)/2;
+      ty = (sh - img.height*scale)/2;
+      applyTransform();
+    }
+    document.getElementById('zoomIn').onclick =()=>{ zoomAt(1.25); };
+    document.getElementById('zoomOut').onclick=()=>{ zoomAt(0.8); };
+    document.getElementById('zoomReset').onclick=fitToStage;
+    function zoomAt(factor){
+      const cx=stage.clientWidth/2, cy=stage.clientHeight/2;
+      const ix=(cx-tx)/scale, iy=(cy-ty)/scale;
+      scale*=factor;
+      tx=cx-ix*scale; ty=cy-iy*scale;
+      applyTransform();
+    }
+
+    // ---- coordinate conversion: screen -> image pixels ----
+    function toImageCoords(e){
+      const rect = stage.getBoundingClientRect();
+      const t = e.touches?e.touches[0]:e;
+      const sx = t.clientX - rect.left;
+      const sy = t.clientY - rect.top;
+      return { x: Math.round((sx - tx)/scale), y: Math.round((sy - ty)/scale) };
+    }
+
+    // ---- paint / erase / pan ----
+    let acting=false, panning=false, panStart=null;
+    function snapshot(){ undoStack.push({data:JSON.parse(JSON.stringify(paintData)), img:pctx.getImageData(0,0,paintCanvas.width,paintCanvas.height)}); if(undoStack.length>40) undoStack.shift(); }
+    function applyAt(p){
+      const r=parseInt(brushEl.value,10);
+      if(tool===ERASER){
+        pctx.save(); pctx.globalCompositeOperation='destination-out';
+        pctx.beginPath(); pctx.arc(p.x,p.y,r,0,Math.PI*2); pctx.fill(); pctx.restore();
+        for(const c in paintData){ paintData[c]=paintData[c].filter(([x,y])=>Math.hypot(x-p.x,y-p.y)>r); if(!paintData[c].length) delete paintData[c]; }
+      } else {
+        pctx.fillStyle=color; pctx.beginPath(); pctx.arc(p.x,p.y,r,0,Math.PI*2); pctx.fill();
+        if(!paintData[color]) paintData[color]=[]; paintData[color].push([p.x,p.y,r]);
+        lastPaintedColor = color;
+        currentStrokePoints.push([p.x, p.y]);   // track this stroke's points
+      }
+    }
+    function down(e){
+      if(tool===HAND){ panning=true; panStart={x:(e.touches?e.touches[0].clientX:e.clientX)-tx, y:(e.touches?e.touches[0].clientY:e.clientY)-ty}; return; }
+      acting=true;
+      currentStrokePoints = [];   // ← reset for this stroke
+      snapshot();
+      applyAt(toImageCoords(e));
+    }
+    function moveE(e){
+      if(panning){ const t=e.touches?e.touches[0]:e; tx=t.clientX-panStart.x; ty=t.clientY-panStart.y; applyTransform(); return; }
+      if(!acting) return; e.preventDefault(); applyAt(toImageCoords(e));
+    }
+    
+    function pixelSignal(r, g, b){
+      return Math.max(r, g) - 0.6 * b;
+    }
+
+    function computeRedThreshold(){
+      rawData = rawCtx.getImageData(0,0,rawCanvas.width,rawCanvas.height).data;
+      const vals = [];
+      const step = 16;
+      for (let i=0; i<rawData.length; i+=step){
+        const s = pixelSignal(rawData[i], rawData[i+1], rawData[i+2]);
+        if (s > 0) vals.push(s);
+      }
+      if (!vals.length) { redThreshold = 10; return; }
+      vals.sort((a,b)=>a-b);
+      redThreshold = Math.max(15, vals[Math.floor(vals.length*0.50)]);
+      console.log("signalThreshold =", redThreshold);
+    }
+
+    function avgRedForPoints(pts){
+      if (redThreshold === null || !rawData || !pts.length) return null;
+      const w = rawCanvas.width, h = rawCanvas.height;
+      let sum=0, n=0;
+      for (const [x,y] of pts){
+        if (x<0||y<0||x>=w||y>=h) continue;
+        const idx = (y*w+x)*4;
+        sum += pixelSignal(rawData[idx], rawData[idx+1], rawData[idx+2]);
+        n++;
+      }
+      return n ? sum/n : null;
+    }
+    
+    function feedbackForLastPaint(){
+      if (!feedbackEl) return;
+      const bar = document.querySelector('.game-topbar');
+      const avg = avgRedForPoints(currentStrokePoints);
+
+      if (avg === null) {
+        feedbackEl.textContent = "";
+        bar.classList.remove('has-msg');
+        return;
+      }
+
+      if (avg < redThreshold){
+        feedbackEl.style.color = "var(--accent-warm)";
+        feedbackEl.textContent = `⚠️ Low red signal here (avg ${avg.toFixed(0)} < background ${redThreshold}). You might have missed a cilium — if you're sure, keep going!`;
+      } else {
+        feedbackEl.style.color = "var(--accent)";
+        feedbackEl.textContent = `✓ Looks good — red signal detected (avg ${avg.toFixed(0)}).`;
+      }
+
+      bar.classList.add('has-msg');
+    }
+    
+    function up(){
+      const wasActing = acting;
+      acting=false; panning=false;
+      if (wasActing && tool !== ERASER && tool !== HAND) {
+        feedbackForLastPaint();
+      }
+    }
+
+    stage.addEventListener('mousedown',down);
+    stage.addEventListener('mousemove',moveE);
+    window.addEventListener('mouseup',up);
+    stage.addEventListener('touchstart',down,{passive:false});
+    stage.addEventListener('touchmove',moveE,{passive:false});
+    window.addEventListener('touchend',up);
+
+    // mouse wheel zoom (bonus)
+    stage.addEventListener('wheel',(e)=>{ e.preventDefault(); zoomAt(e.deltaY<0?1.1:0.9); },{passive:false});
+
+    // ---- buttons ----
+    document.getElementById('undo').onclick=()=>{ const s=undoStack.pop(); if(s){ paintData=s.data; pctx.putImageData(s.img,0,0);} };
+    document.getElementById('clear').onclick=()=>{ snapshot(); pctx.clearRect(0,0,paintCanvas.width,paintCanvas.height); paintData={}; };
+    document.getElementById('newImg').onclick=nextImage;
+    document.getElementById('download').onclick = () => {
+      const annotator = nameEl.value.trim() || 'anonymous_brush';
+      const out = {
+        annotator: annotator,
+        image: currentURL,
+        imageSize: { width: img.width, height: img.height },
+        brightness: brightnessEl.value, contrast: contrastEl.value,
+        format: "Each color key = one cilium. Points: [x,y,brushRadius] in IMAGE pixels.",
+        cilia: paintData,
+        timestamp: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(out,null,2)], {type:'text/plain'});
+      const a = document.createElement('a');
+      a.download = annotator + '_cilia_annotation.txt';
+      a.href = URL.createObjectURL(blob);
+      a.click(); URL.revokeObjectURL(a.href);
+      // PHASE 2: fetch('YOUR_ENDPOINT',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(out)});
+    };
+
+    window.addEventListener('resize', ()=>{ if(img.width) fitToStage(); });
+
+    (async function(){ await loadImageList(); nextImage(); })();
+  </script>
+  
+  <script>
+    // Measure the real nav height and store it as a CSS variable
+    function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+      }
+    }
+    
+    // Header
+    fetch('nav.html')
+      .then(r => r.text())
+      .then(html => {
+        const placeholder = document.getElementById('nav-placeholder');
+        placeholder.outerHTML = html;   // replaces the div with the nav directly
+
+        // highlight active page
+        const page = document.body.dataset.page;
+        const link = document.querySelector('[data-nav="' + page + '"]');
+        if (link) link.classList.add('active');
+
+        // measure nav height (after nav is in the DOM)
+        setNavHeight();
+        window.addEventListener('resize', setNavHeight);
+      });
+  </script>
+</body>
+</html>

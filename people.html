@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team — Hansen Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="people">
+
+  <!-- NAV bar -->
+  <div id="nav-placeholder"></div>
+
+<!-- ===== 1. PHILOSOPHY: WHAT WE VALUE ===== -->
+<section>
+  <div class="container">
+    <h2>Philosophy</h2>
+    <p class="approach-block" style="color:var(--muted);">
+      Our research, teaching, and team culture are guided by a shared set of values.
+    </p>
+
+    <div class="values-grid">
+      <div class="value">
+        <h4>Respect &amp; Teamwork</h4>
+        <p>We complement each other and succeed together. The biggest advances come from teams tackling ideas from many angles and where everyone has their unique role.</p>
+      </div>
+      <div class="value">
+        <h4>Rigor &amp; Reproducibility</h4>
+        <p>We strive for the highest-quality science that others can trust and build on. We automate procedures to minimize bias and document carefully for full reproducibility.</p>
+      </div>
+      <div class="value">
+        <h4>Open Science</h4>
+        <p>Science is an international team effort. We aim to democratize access to key technologies through open-source, open-access data and tools.</p>
+      </div>
+      <div class="value">
+        <h4>Belonging &amp; Fairness</h4>
+        <p>Our lab shall be a safe, welcoming space where everyone feels valued and has an equal opportunity to contribute, grow, and succeed.</p>
+      </div>
+      <div class="value">
+        <h4>Clear Expectations</h4>
+        <p>We practice open, honest communication and co-develop agreements on goals and expectations, revisited continuously to stay aligned.</p>
+      </div>
+      <div class="value">
+        <h4>Growth &amp; Openness</h4>
+        <p>We practice a culture of empathy, self-reflection, and openness, where feedback flows in both directions and guides continuous refinement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. TEACHING & MENTORING (personal note) ===== -->
+<section>
+  <div class="container">
+    <h2>Teaching &amp; Mentoring</h2>
+    <div class="approach-block">
+      <p style="color:var(--accent-warm); font-family:'Space Grotesk',sans-serif; font-weight:500;">
+        A note from Jan
+      </p>
+      <p>
+        I believe that teaching and mentoring are among the most rewarding parts of leading a research group.
+        I see mentoring as a <b>dynamic, reciprocal relationship</b> that supports the professional
+        and personal growth of both mentee and mentor. I see feedback as a key to continuous refinement and growth. This means that I am not just trying to help you grow but also want to hear your feedback, to grow myself.
+      </p>
+      <p>
+        I myself benefited throughout my career from wonderful mentors that trusted in me, that guided me, and helped me grow. Shaped by experience and training across Germany, Norway, Sweden, and the USA, I strive to be a knowledgeable guide and supportive advisor myself, and to lead by example.
+        I trust in <b>individualized support</b>, and aim to adapt my mentoring to each person's goals, needs, and motivations.
+      </p>
+      <p>
+        A central goal is helping people build <b>independence and ownership</b>. I aim to support mentees to lead their projects, make informed decisions, and grow in confidence.
+      </p>
+      <p> 
+         
+      </p>
+    </div>
+  </div>
+</section>
+  
+  <!-- ===== 3. THE TEAM ===== -->
+  <section>
+    <div class="container">
+      <h2>The Team</h2>
+
+      <div class="people-grid">
+
+        <!-- ===== PERSON CARD (copy to add members) ===== -->
+        <div class="person-card" onclick="document.getElementById('person-jan').showModal()">
+          <img src="images/people/jan.jpg" alt="Jan N. Hansen">
+          <span class="expand-hint">Click to read more</span>
+          <div class="overlay">
+            <h3>Jan N. Hansen</h3>
+            <div class="role">Principal Investigator</div>
+          </div>
+        </div>
+
+        <!-- Add more .person-card blocks here as the team grows -->
+
+        <!-- ===== "THIS COULD BE YOU" JOIN CARD ===== -->
+        <a href="#join" class="person-card join-card" style="text-decoration:none;">
+          <div class="join-inner">
+            <div class="plus">＋</div>
+            <h3>This could be you!</h3>
+            <p></p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PERSON MODALS (one per person; place anywhere) ===== -->
+  <dialog class="person-modal" id="person-jan">
+    <button class="modal-close" onclick="this.closest('dialog').close()" aria-label="Close">&times;</button>
+    <div class="modal-body">
+      <img class="modal-photo" src="images/people/jan.jpg" alt="Jan N. Hansen">
+      <div class="modal-content">
+        <h3>Jan N. Hansen</h3>
+        <div class="role">Principal Investigator</div>
+        <p>
+       Jan bridges experimental and computational approaches to tackle open questions in life sciences, combining cell biology, systems biology, technology development, and computer science. He is a passionate advocate for open science and loves mentoring the next generation of researchers in developing an interdisciplinary skill set. Outside the lab, Jan enjoys the outdoors (hiking, SUPing, cross-country skiing), making music on the trumpet and piano, and dancing.
+       	</p>
+        <p>
+	Selected Awards
+		<ul>
+		  <li>2024: Rigor and Reproducibility (RaRe) Researcher Award 2024, Stanford Medicine</li>
+		  <li>2023: "KlarText" award for Science Communication in German, Klaus Tschira Foundation</li>
+		  <li>2022: Nikon Young Scientist Award, German Society of Cell Biology</li>
+		</ul>
+       	</p>
+        <p>
+        Fellowships
+		<ul>
+		  <li>2023 - 2025: EMBO Postdoctoral Fellowship</li>
+		  <li>2022 - 2023: Wenner Gren Postdoctoral Fellowship</li>
+		  <li>2019 - 2020: Boehringer Ingelheim Fonds PhD Fellowship</li>
+		</ul>
+       	</p>
+       	
+        <!-- Profile links -->
+        <div class="links">
+		<p class="orcid-id">
+		  <img src="images/icons/orcid.svg" alt="ORCID iD icon">
+		  <a href="https://orcid.org/0000-0002-0489-7535" target="_blank">0000-0002-0489-7535</a>
+		</p>
+		<p>
+		  <a href="https://scholar.google.com/citations?user=ONpdBm8AAAAJ&hl=en" target="_blank" aria-label="Google Scholar" title="Google Scholar"><img src="images/icons/scholar.svg" alt="Google Scholar"></a>
+		</p>
+		<p>                 
+		  <a href="https://github.com/hansenjn" target="_blank" aria-label="GitHub" title="GitHub"><img src="images/icons/github.svg" alt="GitHub"></a>
+		</p>
+		<p>
+		  <a>Email: jan.hansen[AT]scilifelab.se</a>
+		</p>
+        </div>
+        <p style="font-size:0.6rem; color:var(--muted); margin-top:20px;">
+            ORCID™, the ORCID logo, and the iD logo are trademarks of ORCID, Inc. and used herein with permission.
+        </p> 
+      </div>
+    </div> 
+  </dialog>
+
+
+
+  <!-- ===== 2. JOIN US ===== -->
+  <section id="join">
+    <div class="container">
+      <div class="join-box">
+        <h3>Join Us</h3>
+        <p>
+          Lab opening is planned for <b>January 2027</b> at KTH - Royal Institute of Technology in Stockholm, Sweden. We are actively building our team and welcome curious, motivated people interested in modern translational cell biology, from computational and experimental backgrounds alike.
+        </p>
+        <p>We are looking for:</p>
+        <ul>
+          <li><b>Bachelor/Master/Project students</b></li>
+          <li><b>PhD students</b></li>
+          <li><b>Postdocs</b></li>
+        </ul>
+        <p style="margin-bottom:0;">
+          Interested? Reach out with a short note about yourself, your interests, and what you would love to contribute to our lab. Anyone is welcome to get in touch (jan.hansen[AT]scilifelab.se)</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ===== FOOTER ===== -->  
+  <div id="footer-placeholder"></div>
+  
+  <!-- Add nav and footer -->
+  <script>
+    // Measure the real nav height and store it as a CSS variable
+    function setNavHeight() {
+      const nav = document.querySelector('nav');
+      if (nav) {
+        document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+      }
+    }
+    
+    // Header
+    fetch('nav.html')
+      .then(r => r.text())
+      .then(html => {
+        const placeholder = document.getElementById('nav-placeholder');
+        placeholder.outerHTML = html;   // replaces the div with the nav directly
+
+        // highlight active page
+        const page = document.body.dataset.page;
+        const link = document.querySelector('[data-nav="' + page + '"]');
+        if (link) link.classList.add('active');
+
+        // measure nav height (after nav is in the DOM)
+        setNavHeight();
+        window.addEventListener('resize', setNavHeight);
+      });
+
+    // FOOTER
+    fetch('footer.html')
+      .then(r => r.text())
+      .then(html => {
+        const ph = document.getElementById('footer-placeholder');
+        ph.outerHTML = html;
+      });
+  </script>
+  
+</body>
+</html>
