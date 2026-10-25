@@ -969,5 +969,24 @@ body[data-page="game"] {
 }
 .map-embed iframe { display: block; width: 100%; }
 
+/* =========================================================
+   CARD WITH SIDE VISUALIZATION (e.g. Cilium animation)
+   ========================================================= */
+.card.has-viz {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.card.has-viz .card-text { flex: 1; min-width: 0; }
+.card.has-viz .card-viz {
+  flex-shrink: 0;
+  width: 120px;          /* tune: display width of the SVG */
+  height: auto;
+  align-self: center;
+}
 
-
+/* Stack on narrow screens: SVG above text, centered */
+@media (max-width: 600px) {
+  .card.has-viz { flex-direction: column; }
+  .card.has-viz .card-viz { width: 100px; order: -1; }
+}
